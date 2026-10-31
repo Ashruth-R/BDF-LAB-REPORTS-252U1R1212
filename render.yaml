@@ -8,15 +8,15 @@ services:
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
-        value: 20
+        value: 20.18.0
 
   - type: web
     name: bdf-lab-02-sqlite-crud
     runtime: node
     plan: free
     rootDir: lab-02
-    buildCommand: npm install && npm run init:db
+    buildCommand: npm install && npm rebuild sqlite3 --build-from-source && npm run init:db
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
-        value: 20
+        value: 20.18.0
