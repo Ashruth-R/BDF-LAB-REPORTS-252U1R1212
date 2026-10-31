@@ -6,7 +6,7 @@
 **Section**: Core CSE-2D  
 **Faculty**: Shiva Sai Teja  
 **Repository**: [Ashruth-R/BDF-LAB-REPORTS-252U1R1212](https://github.com/Ashruth-R/BDF-LAB-REPORTS-252U1R1212)
-**Live server**Live Server](https://bdf-lab-01-express.onrender.com)
+**Live server**: (https://bdf-lab-01-express.onrender.com)
 ---
 
 ## Course Lab Index
