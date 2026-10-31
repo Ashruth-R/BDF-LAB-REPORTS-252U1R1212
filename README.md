@@ -6,7 +6,7 @@
 **Section**: Core CSE-2D  
 **Faculty**: Shiva Sai Teja  
 **Repository**: [Ashruth-R/BDF-LAB-REPORTS-252U1R1212](https://github.com/Ashruth-R/BDF-LAB-REPORTS-252U1R1212)
-
+**Live server**Live Server](https://bdf-lab-01-express.onrender.com)
 ---
 
 ## Course Lab Index
@@ -16,7 +16,7 @@ This repository houses all laboratory assignments and project deliverables for B
 | Lab Number | Lab Title | Status | Documentation & Code |
 | :---: | :--- | :---: | :---: |
 | **Lab 01** | **Node.js and Express Server** | ✅ Completed | [Browse lab-01/](lab-01/) • [🌐 Live Server](https://bdf-lab-01-express.onrender.com) |
-| **Lab 02** | *Upcoming Lab* | ⏳ Pending | `lab-02/` |
+| **Lab 02** | **SQLite Database and CRUD Routes** | ✅ Completed | [Browse lab-02/](lab-02/) |
 | **Lab 03** | *Upcoming Lab* | ⏳ Pending | `lab-03/` |
 | **Lab 04** | *Upcoming Lab* | ⏳ Pending | `lab-04/` |
 | **Lab 05** | *Upcoming Lab* | ⏳ Pending | `lab-05/` |
@@ -28,20 +28,29 @@ This repository houses all laboratory assignments and project deliverables for B
 
 ---
 
-## Lab 1 Overview
-
+## Lab 1 Overview: Node.js & Express Server
 - **Folder**: [`lab-01/`](lab-01/)
-- **Deliverables**:
-  - Plain Node.js HTTP server (`http.createServer`) on port 3000 replying `"Hello"` ([`http-server.js`](lab-01/http-server.js))
-  - Express.js application with routing & 404 middleware ([`server.js`](lab-01/server.js))
-  - Automated route tester and status code logger ([`test-endpoints.js`](lab-01/test-endpoints.js))
-  - Output proof screenshots ([`screenshots/`](lab-01/screenshots/))
-  - Full lab report and viva Q&A ([`lab-01/README.md`](lab-01/README.md))
+- **Live Server**: [https://bdf-lab-01-express.onrender.com](https://bdf-lab-01-express.onrender.com)
+- **Documentation**: [`lab-01/README.md`](lab-01/README.md)
 
-### Quick Start
+---
+
+## Lab 2 Overview: SQLite Database & CRUD Routes
+- **Folder**: [`lab-02/`](lab-02/)
+- **Deliverables**:
+  - SQLite database file `books.db` seeded with 10 records ([`init-db.js`](lab-02/init-db.js))
+  - Express server with async `initializeDBAndServer()` ([`server.js`](lab-02/server.js))
+  - 5 Parameterized CRUD endpoints: `GET /books/`, `GET /books/:bookId/`, `POST /books/`, `PUT /books/:bookId/`, `DELETE /books/:bookId/`
+  - Automated test runner verifying status codes and database mutations ([`test-crud.js`](lab-02/test-crud.js))
+  - Visual proof screenshots ([`screenshots/`](lab-02/screenshots/))
+  - Full lab report and Viva Q&A ([`lab-02/README.md`](lab-02/README.md))
+
+### Quick Start (Lab 2)
 ```bash
 git clone https://github.com/Ashruth-R/BDF-LAB-REPORTS-252U1R1212.git
-cd BDF-LAB-REPORTS-252U1R1212/lab-01
+cd BDF-LAB-REPORTS-252U1R1212/lab-02
 npm install
+npm run init:db
 npm start
 ```
+
