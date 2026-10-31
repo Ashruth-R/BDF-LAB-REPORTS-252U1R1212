@@ -5,8 +5,9 @@
 **Registration Number**: 252U1R1212  
 **Section**: Core CSE-2D  
 **Faculty**: Shiva Sai Teja  
-**Repository**: [Ashruth-R/BDF-LAB-REPORTS-252U1R1212](https://github.com/Ashruth-R/BDF-LAB-REPORTS-252U1R1212)
-**Live server**: (https://bdf-lab-01-express.onrender.com)
+**Repository**: [Ashruth-R/BDF-LAB-REPORTS-252U1R1212](https://github.com/Ashruth-R/BDF-LAB-REPORTS-252U1R1212)  
+**Live Server (Lab 01)**: [https://bdf-lab-01-express.onrender.com](https://bdf-lab-01-express.onrender.com)  
+**Live Server (Lab 02)**: [https://bdf-lab-02-sqlite-crud.onrender.com](https://bdf-lab-02-sqlite-crud.onrender.com)
 ---
 
 ## Course Lab Index
@@ -16,7 +17,7 @@ This repository houses all laboratory assignments and project deliverables for B
 | Lab Number | Lab Title | Status | Documentation & Code |
 | :---: | :--- | :---: | :---: |
 | **Lab 01** | **Node.js and Express Server** | ✅ Completed | [Browse lab-01/](lab-01/) • [🌐 Live Server](https://bdf-lab-01-express.onrender.com) |
-| **Lab 02** | **SQLite Database and CRUD Routes** | ✅ Completed | [Browse lab-02/](lab-02/) |
+| **Lab 02** | **SQLite Database and CRUD Routes** | ✅ Completed | [Browse lab-02/](lab-02/) • [🌐 Live Server](https://bdf-lab-02-sqlite-crud.onrender.com) |
 | **Lab 03** | *Upcoming Lab* | ⏳ Pending | `lab-03/` |
 | **Lab 04** | *Upcoming Lab* | ⏳ Pending | `lab-04/` |
 | **Lab 05** | *Upcoming Lab* | ⏳ Pending | `lab-05/` |
@@ -37,6 +38,8 @@ This repository houses all laboratory assignments and project deliverables for B
 
 ## Lab 2 Overview: SQLite Database & CRUD Routes
 - **Folder**: [`lab-02/`](lab-02/)
+- **Live Server**: [https://bdf-lab-02-sqlite-crud.onrender.com](https://bdf-lab-02-sqlite-crud.onrender.com)
+- **Documentation**: [`lab-02/README.md`](lab-02/README.md)
 - **Deliverables**:
   - SQLite database file `books.db` seeded with 10 records ([`init-db.js`](lab-02/init-db.js))
   - Express server with async `initializeDBAndServer()` ([`server.js`](lab-02/server.js))

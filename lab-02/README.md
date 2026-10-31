@@ -6,7 +6,7 @@
 **Course**: Backend Development Fundamentals (Year II Term II)  
 **Faculty**: Shiva Sai Teja  
 **Repository**: [Ashruth-R/BDF-LAB-REPORTS-252U1R1212](https://github.com/Ashruth-R/BDF-LAB-REPORTS-252U1R1212)  
-**Live Link**: Not applicable (Local development server running on `http://localhost:3000`)
+**Live Link**: [https://bdf-lab-02-sqlite-crud.onrender.com](https://bdf-lab-02-sqlite-crud.onrender.com)
 
 ---
 
