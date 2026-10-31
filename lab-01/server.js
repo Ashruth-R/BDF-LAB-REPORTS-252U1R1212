@@ -55,7 +55,7 @@ app.use((req, res) => {
 });
 
 // Start Express server
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`[Express Server] Server running successfully on port ${PORT}`);
     console.log(`[Express Server] Endpoints available:`);
     console.log(`  - GET  http://localhost:${PORT}/`);
