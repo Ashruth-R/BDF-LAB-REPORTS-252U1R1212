@@ -15,7 +15,7 @@ This repository houses all laboratory assignments and project deliverables for B
 
 | Lab Number | Lab Title | Status | Documentation & Code |
 | :---: | :--- | :---: | :---: |
-| **Lab 01** | **Node.js and Express Server** | ✅ Completed | [Browse lab-01/](lab-01/) |
+| **Lab 01** | **Node.js and Express Server** | ✅ Completed | [Browse lab-01/](lab-01/) • [🌐 Live Server](https://bdf-lab-01-express.onrender.com) |
 | **Lab 02** | *Upcoming Lab* | ⏳ Pending | `lab-02/` |
 | **Lab 03** | *Upcoming Lab* | ⏳ Pending | `lab-03/` |
 | **Lab 04** | *Upcoming Lab* | ⏳ Pending | `lab-04/` |
