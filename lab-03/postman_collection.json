@@ -1,0 +1,606 @@
+{
+  "info": {
+    "_postman_id": "bdf-lab-03-rest-api-collection-252u1r1212",
+    "name": "Lab 03 - REST API, Query Parameters, Validation & Debugging",
+    "description": "Comprehensive Postman test collection for BDF Lab 3 covering REST endpoints, query parameters, validation errors (400), status codes (201, 200, 404), and error consistency.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 - API Overview & Root",
+      "item": [
+        {
+          "name": "GET / - Welcome & Endpoints Documentation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": [""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Response contains student metadata and endpoints', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('student');",
+                  "    pm.expect(json).to.have.property('endpoints');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "02 - Query Parameters & Filtering (GET /books/)",
+      "item": [
+        {
+          "name": "GET /books/ - Default List (limit 10, offset 0, order id ASC)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Returns an array of books up to default limit 10', function () {",
+                  "    var data = pm.response.json();",
+                  "    pm.expect(Array.isArray(data)).to.be.true;",
+                  "    pm.expect(data.length).to.be.at.most(10);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /books/?search_q=JavaScript - Partial Title Match",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?search_q=JavaScript",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                { "key": "search_q", "value": "JavaScript" }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Every book title matches search query', function () {",
+                  "    var data = pm.response.json();",
+                  "    pm.expect(data.length).to.be.above(0);",
+                  "    data.forEach(function (b) {",
+                  "        pm.expect(b.title.toLowerCase()).to.include('javascript');",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /books/?min_price=500&max_price=800 - Price Range Filter",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?min_price=500&max_price=800",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                { "key": "min_price", "value": "500" },
+                { "key": "max_price", "value": "800" }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('All book prices fall within [500, 800]', function () {",
+                  "    var data = pm.response.json();",
+                  "    pm.expect(data.length).to.be.above(0);",
+                  "    data.forEach(function (b) {",
+                  "        pm.expect(b.price).to.be.at.least(500);",
+                  "        pm.expect(b.price).to.be.at.most(800);",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /books/?order_by=price&order=DESC - Sorting",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?order_by=price&order=DESC&limit=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                { "key": "order_by", "value": "price" },
+                { "key": "order", "value": "DESC" },
+                { "key": "limit", "value": "5" }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Prices are descending', function () {",
+                  "    var data = pm.response.json();",
+                  "    for (var i = 0; i < data.length - 1; i++) {",
+                  "        pm.expect(data[i].price).to.be.at.least(data[i + 1].price);",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /books/?limit=3&offset=3 - Pagination",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?limit=3&offset=3",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                { "key": "limit", "value": "3" },
+                { "key": "offset", "value": "3" }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Exact 3 records returned', function () {",
+                  "    var data = pm.response.json();",
+                  "    pm.expect(data.length).to.equal(3);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /books/ - Combined Filters & Search",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/?search_q=Code&min_price=600&max_price=800&order_by=price&order=ASC",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""],
+              "query": [
+                { "key": "search_q", "value": "Code" },
+                { "key": "min_price", "value": "600" },
+                { "key": "max_price", "value": "800" },
+                { "key": "order_by", "value": "price" },
+                { "key": "order", "value": "ASC" }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Combined criteria verified', function () {",
+                  "    var data = pm.response.json();",
+                  "    pm.expect(data.length).to.be.above(0);",
+                  "    data.forEach(function (b) {",
+                  "        pm.expect(b.title.toLowerCase()).to.include('code');",
+                  "        pm.expect(b.price).to.be.at.least(600);",
+                  "        pm.expect(b.price).to.be.at.most(800);",
+                  "    });",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "03 - Request Validation (400 Bad Request)",
+      "item": [
+        {
+          "name": "POST /books/ - Missing Title (Reject with 400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": \"Martin Fowler\",\n  \"price\": 780,\n  \"pages\": 400\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400 Bad Request', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Error message mentions title', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.message).to.include('title');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /books/ - Missing Author (Reject with 400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Domain-Driven Design\",\n  \"price\": 890,\n  \"pages\": 560\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400 Bad Request', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Error message mentions author', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.message).to.include('author');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "POST /books/ - Non-Numeric Price (Reject with 400)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Kubernetes Up & Running\",\n  \"author\": \"Kelsey Hightower\",\n  \"price\": \"free_or_cheap\",\n  \"pages\": 280\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 400 Bad Request', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Error message mentions price', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.message).to.include('price');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "04 - Resource CRUD & Status Codes (201, 200, 404)",
+      "item": [
+        {
+          "name": "POST /books/ - Valid Book Creation (201 Created)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Site Reliability Engineering\",\n  \"author\": \"Betsy Beyer et al.\",\n  \"price\": 850,\n  \"pages\": 550\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 201 Created', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "var json = pm.response.json();",
+                  "pm.test('Contains bookId and success message', function () {",
+                  "    pm.expect(json).to.have.property('bookId');",
+                  "    pm.expect(json.message).to.equal('Book created successfully');",
+                  "});",
+                  "pm.environment.set('createdBookId', json.bookId);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /books/:bookId/ - Retrieve Existing Book (200 OK)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/{{createdBookId}}/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "{{createdBookId}}", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Book matches retrieved ID', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.id).to.equal(parseInt(pm.environment.get('createdBookId')));",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "GET /books/:bookId/ - Missing Book (404 Not Found)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/999999/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "999999", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 404 Not Found', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test('Consistent error format with message property', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('message');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /books/:bookId/ - Update Existing Book (200 OK)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 920\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/{{createdBookId}}/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "{{createdBookId}}", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Returns updated confirmation message', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.message).to.equal('Book updated successfully');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "PUT /books/:bookId/ - Update Missing Book (404 Not Found)",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 999\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/999999/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "999999", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 404 Not Found', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test('Error format contains message', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('message');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /books/:bookId/ - Delete Existing Book (200 OK)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/{{createdBookId}}/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "{{createdBookId}}", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 200 OK', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test('Returns deleted confirmation message', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json.message).to.equal('Book deleted successfully');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "DELETE /books/:bookId/ - Delete Missing Book (404 Not Found)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/999999/",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "999999", ""]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 404 Not Found', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "pm.test('Error format contains message', function () {",
+                  "    var json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('message');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

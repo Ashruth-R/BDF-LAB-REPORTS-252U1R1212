@@ -18,7 +18,7 @@ This repository houses all laboratory assignments and project deliverables for B
 | :---: | :--- | :---: | :---: |
 | **Lab 01** | **Node.js and Express Server** | ✅ Completed | [Browse lab-01/](lab-01/) • [🌐 Live Server](https://bdf-lab-01-express.onrender.com) |
 | **Lab 02** | **SQLite Database and CRUD Routes** | ✅ Completed | [Browse lab-02/](lab-02/) • [🌐 Live Server](https://bdf-lab-02-sqlite-crud.onrender.com) |
-| **Lab 03** | *Upcoming Lab* | ⏳ Pending | `lab-03/` |
+| **Lab 03** | **REST API, Query Parameters, Validation & Debugging** | ✅ Completed | [Browse lab-03/](lab-03/) • [🌐 Live Server](https://bdf-lab-03-rest-api.onrender.com) |
 | **Lab 04** | *Upcoming Lab* | ⏳ Pending | `lab-04/` |
 | **Lab 05** | *Upcoming Lab* | ⏳ Pending | `lab-05/` |
 | **Lab 06** | *Upcoming Lab* | ⏳ Pending | `lab-06/` |
@@ -56,4 +56,30 @@ npm install
 npm run init:db
 npm start
 ```
+
+---
+
+## Lab 3 Overview: REST API, Query Parameters, Validation & Debugging
+- **Folder**: [`lab-03/`](lab-03/)
+- **Live Server**: [https://bdf-lab-03-rest-api.onrender.com](https://bdf-lab-03-rest-api.onrender.com)
+- **Documentation**: [`lab-03/README.md`](lab-03/README.md)
+- **Deliverables**:
+  - Express REST API with noun endpoints and status codes (`201`, `200`, `400`, `404`) ([`server.js`](lab-03/server.js))
+  - Advanced Query Parameters: `search_q`, `min_price`, `max_price`, `order_by`, `order`, `limit`, `offset`
+  - Body validation rejecting missing fields / invalid prices with `400 Bad Request` and uniform `{ "message": "..." }`
+  - Faculty Debugging Exercise: Reproduces and solves `EADDRINUSE`, `MODULE_NOT_FOUND`, `no such table`, and missing `await` ([`debugging/`](lab-03/debugging/))
+  - 41-assertion automated test runner ([`test-api.js`](lab-03/test-api.js))
+  - Postman Collection v2.1.0 and Environment ([`postman_collection.json`](lab-03/postman_collection.json))
+  - Full lab report and Viva Q&A ([`lab-03/README.md`](lab-03/README.md))
+
+### Quick Start (Lab 3)
+```bash
+git clone https://github.com/Ashruth-R/BDF-LAB-REPORTS-252U1R1212.git
+cd BDF-LAB-REPORTS-252U1R1212/lab-03
+npm run init:db
+npm start
+npm run test:api
+npm run debug:verify
+```
+
 
